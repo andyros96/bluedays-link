@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bluedays · Trip invitation</title>
+<meta name="description" content="You're invited to a trip on Bluedays.">
+<meta property="og:title" content="You're invited to a trip on Bluedays">
+<meta property="og:description" content="Add your photos and the trip gets more precise for everyone.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #131313; --ink: #F5F3EF; --dim: #9A9A9F; --blue: #0A8CFF; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink); font: 17px/1.45 -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+         display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; text-align: center; }
+  h1 { font-family: Sora, sans-serif; font-weight: 500; color: var(--blue); font-size: 44px; letter-spacing: -1px; margin: 0 0 18px; }
+  p { margin: 0 0 28px; color: var(--dim); max-width: 340px; }
+  a.btn { display: block; width: 100%; max-width: 320px; padding: 15px; border-radius: 16px; text-decoration: none; font-weight: 600; margin-bottom: 12px; }
+  .primary { background: var(--blue); color: #fff; }
+  .secondary { background: rgba(255,255,255,0.1); color: var(--ink); }
+  .bad { color: var(--dim); }
+</style>
+</head>
+<body>
+  <h1>Bluedays</h1>
+  <p id="msg">You're invited to a trip. Add your photos and it gets more precise for everyone.</p>
+  <a class="btn primary" id="open" href="#">Open in Bluedays</a>
+  <a class="btn secondary" href="https://apps.apple.com/app/id6825974451">Get Bluedays</a>
+<script>
+  // The trip's invite link: hands the code to the app (bluedays://invite/<code>),
+  // where the invitation shows with Accept / Decline. No app: the buttons stay.
+  var code = new URLSearchParams(location.search).get('c') || '';
+  if (/^[0-9a-f]{8,64}$/.test(code)) {
+    var app = 'bluedays://invite/' + code;
+    document.getElementById('open').href = app;
+    location.href = app;
+  } else {
+    document.getElementById('msg').textContent = 'This is not a Bluedays invitation link.';
+    document.getElementById('msg').className = 'bad';
+    document.getElementById('open').style.display = 'none';
+  }
+</script>
+</body>
+</html>
